@@ -1,5 +1,5 @@
 import sys, os
-commandList = ["help", "shutdown", "ls", "dir"]
+commandList = ["help", "shutdown", "ls", "dir", "mkdir", "cd"]
 
 def bootLoader():
     print("Welcome to SquirrelOS!")
@@ -10,11 +10,18 @@ def bootLoader():
 def commandLine():
     cmd = input("> ")
     if cmd == commandList[0]:
-        helpList()
+        helpdist()
     if cmd == commandList[1]:
-        shutDown()
+        shutdown()
     if cmd == commandList[2] or cmd == commandList[3]:
-        showDir()
+        showdir()
+    if cmd.__contains__("mkdir"):
+        dirName = cmd[5:]
+        makedir(dirName)
+    if cmd.__contains__("cd"):
+        dirPath = cmd[2:]
+        dirPath = dirPath.strip()
+        changeDir(dirPath)
 
     for command in commandList:
         if cmd != commandList:
@@ -22,15 +29,20 @@ def commandLine():
             commandLine()
         else:
             break
-
-def helpList():
+def helpdist():
     for cmd in commandList:
         print(cmd)
     commandLine()
-def shutDown():
+def shutdown():
     sys.exit(0)
 
-def showDir():
+def showdir():
     print(os.getcwd())
+
+def makedir(name):
+    os.makedirs("data/"+name)
+    print("Made A dir"+name)
+def changeDir(path):
+    os.chdir(os.getcwd()+"\\"+path)
 
 bootLoader()
