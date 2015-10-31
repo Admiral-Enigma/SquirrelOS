@@ -1,4 +1,5 @@
 import sys, os
+from glob import glob
 commandList = ["help", "shutdown", "ls", "dir", "mkdir", "cd"]
 
 def bootLoader():
@@ -37,12 +38,18 @@ def shutdown():
     sys.exit(0)
 
 def showdir():
-    print(os.getcwd())
+    getDir = os.getcwd()
+    print(getDir)
+    print(os.listdir(getDir))
+    commandLine()
 
 def makedir(name):
     os.makedirs("data/"+name)
     print("Made A dir"+name)
+    commandLine()
+
 def changeDir(path):
     os.chdir(os.getcwd()+"\\"+path)
+    commandLine()
 
 bootLoader()
