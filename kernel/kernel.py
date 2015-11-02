@@ -1,6 +1,5 @@
-import sys, os
-from glob import glob
-commandList = ["help", "shutdown", "ls", "dir", "mkdir", "cd"]
+import sys, os, time
+commandList = ["help", "shutdown", "ls", "dir", "mkdir", "cd", "time"]
 
 def bootLoader():
     print("Welcome to SquirrelOS!")
@@ -16,6 +15,9 @@ def commandLine():
         shutdown()
     if cmd == commandList[2] or cmd == commandList[3]:
         showdir()
+    if cmd == commandList[6]:
+        showTime()
+
     if cmd.__contains__("mkdir"):
         dirName = cmd[5:]
         makedir(dirName)
@@ -51,5 +53,10 @@ def makedir(name):
 def changeDir(path):
     os.chdir(os.getcwd()+"\\"+path)
     commandLine()
+
+def changeDir(path):
+    os.chdir(os.getcwd()+"/"+path)
+def showTime():
+    print(time.ctime())
 
 bootLoader()
